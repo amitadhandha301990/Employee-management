@@ -32,10 +32,10 @@ def add_emp(request):
         bonus=request.POST['bonus']
         phone=int(request.POST['phone'])
         role1 = Role.objects.create(name=request.POST['role'])
-        role=request.POST['role']
+    
        
         
-        new_emp=Employee(first_name = first_name,last_name=last_name,salary=salary,bonus=bonus,phone=phone,dept_id=dept,role_id=role,hire_date=datetime.now())
+        new_emp=Employee(first_name = first_name,last_name=last_name,salary=salary,bonus=bonus,phone=phone,dept_id=dept,Role_id=role,hire_date=datetime.now())
         
         new_emp.save()
 
@@ -64,14 +64,14 @@ def filter_emp(request):
     if request.method =="POST":
         name=request.POST["name"]
         dept=request.POST["dept"]
-        role=request.POST["role"]
+        Role=request.POST["role"]
         emps=Employee.objects.all()
         if name:
             emps=emps.filter(Q(first_name__icontains=name)) | Q(last_name__icontains=name)
         if dept:
             emps=emps.filter(dept__name__icontains=dept)
-        if role:
-            emps=emps.filter(role__name__icontains=role)
+        if Role:
+            emps=emps.filter(role__name__icontains=Role)
         context ={
             'emps':emps
         }    
