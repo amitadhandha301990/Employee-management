@@ -31,11 +31,11 @@ def add_emp(request):
         salary=request.POST['salary']
         bonus=request.POST['bonus']
         phone=int(request.POST['phone'])
-        role1 = Role.objects.create(name=request.POST['role'])
+        role1 = Role.objects.create(name=request.POST['Role'])
     
        
         
-        new_emp=Employee(first_name = first_name,last_name=last_name,salary=salary,bonus=bonus,phone=phone,dept_id=dept,Role_id=role,hire_date=datetime.now())
+        new_emp=Employee(first_name = first_name,last_name=last_name,salary=salary, bonus=bonus,phone=phone,dept_id=dept,Role_id=role1,hire_date=datetime.now())
         
         new_emp.save()
 
@@ -62,20 +62,20 @@ def remove_emp(request,emp_id=0):
 
 def filter_emp(request):
     if request.method =="POST":
-        name=request.POST["name"]
+        name=request.POST["first_name"]
         dept=request.POST["dept"]
-        Role=request.POST["role"]
+        role=request.POST["role"]
         emps=Employee.objects.all()
         if name:
-            emps=emps.filter(Q(first_name__icontains=name)) | Q(last_name__icontains=name)
+            emps=emps.filter(Q(first_name__icontains=name)) 
         if dept:
             emps=emps.filter(dept__name__icontains=dept)
-        if Role:
-            emps=emps.filter(role__name__icontains=Role)
+        if role:
+            emps=emps.filter(Role__name__icontains=role)
         context ={
             'emps':emps
         }    
-        return render(request,"view_all_emp.html",context)
+        return render(request,"view_all_emp.html", context)
     elif request.method=="GET":   
         return render(request,'filter_emp.html')  
     else:

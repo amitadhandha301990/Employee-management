@@ -14,12 +14,12 @@
     <form action="/filter_emp" method="POST">
       {% csrf_token %}
       <div class="mb-3">
-        <label for="first_name" class="form-label">First name/last name  </label><br>
+        <label for="first_name" class="form-label" for="last_name">first name/last name  </label><br>
         <input type="text" class="form-control" id="first_name" name="first_name" value={{first_name}}{{last_name}}>
         <label for="dept" class="form-label">Department</label>
         <input type="text" class="form-control" id="dept" name= "dept" value={{dept}}>
         <label for="role" class="form-label">Role</label>
-        <input type="text" class="form-control" id="role" name= "role"evalue={{role}}>
+        <input type="text" class="form-control" id="role" name= "role" value={{role}}>
         
       </div>
       
