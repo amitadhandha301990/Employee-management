@@ -3,7 +3,7 @@ from multiprocessing import context
 from django.shortcuts import render,HttpResponse
 from .models import Employee,Role,Department
 from datetime import datetime
-from django.db.models import Q
+
 
 # Create your views here.
 
@@ -18,24 +18,19 @@ def all_emp(request):
         'emps': emps 
 
     }
-    
-        
     return render(request,'view_all_emp.html',context)
 
-def add_emp(request):
+'''def add_emp(request):
 
     if request.method=='POST':
         first_name=request.POST['first_name']
         last_name=request.POST['last_name']
-        dept=request.POST['dept']
+        dept=int(request.POST['dept'])
         salary=request.POST['salary']
-        bonus=request.POST['bonus']
+        bonus=int(request.POST['bonus'])
         phone=int(request.POST['phone'])
         role1 = Role.objects.create(name=request.POST['Role'])
-    
-       
-        
-        new_emp=Employee(first_name = first_name,last_name=last_name,salary=salary, bonus=bonus,phone=phone,dept_id=dept,Role_id=role1,hire_date=datetime.now())
+        new_emp=Employee(first_name=first_name,last_name=last_name,salary=salary,bonus=bonus,phone=phone,dept_id=dept,Role_id=role1,hire_date=datetime.now())
         
         new_emp.save()
 
@@ -44,7 +39,7 @@ def add_emp(request):
       return render(request,'add_emp.html')
     else:
         return HttpResponse("an exceptional occurred employee has not add" )  
-
+'''
 def remove_emp(request,emp_id=0):
     if emp_id:
         try:
@@ -67,7 +62,7 @@ def filter_emp(request):
         role=request.POST["role"]
         emps=Employee.objects.all()
         if name:
-            emps=emps.filter(Q(first_name__icontains=name)) 
+            emps=emps.filter(first_name__icontains=name)
         if dept:
             emps=emps.filter(dept__name__icontains=dept)
         if role:
@@ -81,5 +76,4 @@ def filter_emp(request):
     else:
         return HttpResponse("Exceptional Occured")          
     
-            
 
